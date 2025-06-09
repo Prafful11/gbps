@@ -106,4 +106,4 @@ exports.revision = revision;
 exports.rewrite = rewrite;
 exports.copyAssets = copyAssets;
 exports.postBuild = postBuild;
-exports.default = build; 
+exports.default = build;

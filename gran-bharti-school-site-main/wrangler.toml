@@ -1,5 +1,15 @@
 name = "gyan-bharti-school"
+type = "webpack"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
 compatibility_date = "2023-12-01"
 
+[site]
+bucket = "./dist"
+entry-point = "./.cloudflare/workers-site"
+
 [build]
-command = "npm run build:cloudflare" 
+command = "npm run build:simple"
+upload.format = "service-worker" 

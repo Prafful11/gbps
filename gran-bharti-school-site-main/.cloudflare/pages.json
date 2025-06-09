@@ -1,6 +1,13 @@
 {
   "build": {
     "command": "npm run build:simple",
-    "output_directory": "dist"
-  }
+    "output_directory": "dist",
+    "environment_variables": {
+      "NODE_VERSION": "18"
+    }
+  },
+  "routes": [
+    { "pattern": "/assets/*", "cache": true },
+    { "pattern": "/*", "script": "index.js" }
+  ]
 } 
