@@ -42,7 +42,7 @@ const Hero = () => {
               Apply for Admission
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-school-blue">
+            <Button size="lg" variant="outline" className="border-school-gold text-school-gold hover:bg-school-gold hover:text-white">
               Take a Virtual Tour
             </Button>
           </div>

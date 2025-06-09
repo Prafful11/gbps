@@ -11,12 +11,12 @@ const Contact = () => {
     {
       icon: MapPin,
       title: 'Address',
-      details: 'Sector 15, Educational Hub\nNew Delhi, India - 110001'
+      details: 'Near D.M Office Mathura Road \n Hathras, India - 204101'
     },
     {
       icon: Phone,
       title: 'Phone',
-      details: '+91 11 2345 6789\n+91 11 2345 6790'
+      details: '+91 989 787 7198\n+91 844 507 7979'
     },
     {
       icon: Mail,
