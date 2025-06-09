@@ -1,17 +1,17 @@
 // gulpfile.js
-import gulp from 'gulp';
-import { deleteAsync } from 'del';
-import imagemin from 'gulp-imagemin';
-import htmlmin from 'gulp-htmlmin';
-import terser from 'gulp-terser';
-import cleanCSS from 'gulp-clean-css';
-import rev from 'gulp-rev';
-import revRewrite from 'gulp-rev-rewrite';
-import { readFileSync } from 'fs';
-import path from 'path';
+const gulp = require('gulp');
+const del = require('del');
+const imagemin = require('gulp-imagemin');
+const htmlmin = require('gulp-htmlmin');
+const terser = require('gulp-terser');
+const cleanCSS = require('gulp-clean-css');
+const rev = require('gulp-rev');
+const revRewrite = require('gulp-rev-rewrite');
+const fs = require('fs');
+const path = require('path');
 
 // Clean dist folder
-const clean = () => deleteAsync(['dist']);
+const clean = () => del(['dist']);
 
 // Optimize images
 const optimizeImages = () => {
@@ -57,10 +57,16 @@ const revision = () => {
 
 // Replace references in HTML to the revisioned filenames
 const rewrite = () => {
-  const manifest = readFileSync('dist/assets/rev-manifest.json');
-  return gulp.src('dist/**/*.html')
-    .pipe(revRewrite({ manifest }))
-    .pipe(gulp.dest('dist'));
+  try {
+    const manifest = fs.readFileSync('dist/assets/rev-manifest.json');
+    return gulp.src('dist/**/*.html')
+      .pipe(revRewrite({ manifest }))
+      .pipe(gulp.dest('dist'));
+  } catch (err) {
+    console.error('Error in rewrite task:', err);
+    // Return an empty stream to avoid breaking the pipeline
+    return gulp.src('dist/**/*.html').pipe(gulp.dest('dist'));
+  }
 };
 
 // Copy other assets that don't need processing
@@ -72,33 +78,32 @@ const copyAssets = () => {
     .pipe(gulp.dest('dist'));
 };
 
-// Post-build optimization tasks
-const postBuild = gulp.series(
+// Define simpler tasks without rev
+const simpleBuild = gulp.series(
   minifyHTML,
   optimizeJS,
-  optimizeCSS,
-  revision,
-  rewrite
+  optimizeCSS
+);
+
+// Post-build optimization tasks
+const postBuild = gulp.series(
+  simpleBuild
 );
 
 // Define complex tasks
 const build = gulp.series(
-  clean,
-  optimizeImages,
   copyAssets,
   postBuild
 );
 
 // Export tasks
-export { 
-  clean,
-  optimizeImages,
-  minifyHTML,
-  optimizeJS,
-  optimizeCSS,
-  revision,
-  rewrite,
-  copyAssets,
-  postBuild,
-  build as default
-}; 
+exports.clean = clean;
+exports.optimizeImages = optimizeImages;
+exports.minifyHTML = minifyHTML;
+exports.optimizeJS = optimizeJS;
+exports.optimizeCSS = optimizeCSS;
+exports.revision = revision;
+exports.rewrite = rewrite;
+exports.copyAssets = copyAssets;
+exports.postBuild = postBuild;
+exports.default = build; 
