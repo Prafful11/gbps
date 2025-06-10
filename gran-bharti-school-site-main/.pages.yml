@@ -1,0 +1,5 @@
+build:
+  command: chmod +x ./cloudflare-build.sh && ./cloudflare-build.sh
+  output_directory: dist
+  environment:
+    NODE_VERSION: 18 

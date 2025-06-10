@@ -11,5 +11,5 @@ bucket = "./dist"
 entry-point = "./.cloudflare/workers-site"
 
 [build]
-command = "node build.js"
+command = "npm install && npm run build"
 upload.format = "service-worker" 

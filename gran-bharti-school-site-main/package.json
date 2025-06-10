@@ -3,19 +3,23 @@
   "homepage": "https://Prafful11.github.io/gbps",
   "private": true,
   "version": "0.0.0",
+  "bin": {
+    "gulp": "./gulp.js"
+  },
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "vite",
-    "build": "node build.js",
+    "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
     "optimize": "node build.js",
-    "build:cloudflare": "node build.js",
-    "build:simple": "node build.js",
+    "build:cloudflare": "vite build && node build.js",
+    "build:simple": "vite build && node build.js",
     "pages:deploy": "wrangler pages deploy dist",
-    "pages:dev": "wrangler pages dev dist"
+    "pages:dev": "wrangler pages dev dist",
+    "cloudflare:build": "vite build && node build.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

@@ -3,6 +3,12 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// Check if we're being called with arguments (like 'gulp build')
+const args = process.argv.slice(2);
+if (args.length > 0 && args[0] === 'build') {
+  console.log('Called with "build" argument, continuing with build process...');
+}
+
 // Create a dist directory if it doesn't exist
 function ensureDistDirectory() {
   console.log('Ensuring dist directory exists...');
@@ -81,6 +87,15 @@ function create404Page() {
   }
 }
 
+// Create a _redirects file for Cloudflare Pages
+function createRedirectsFile() {
+  console.log('Creating _redirects file...');
+  const redirectsPath = path.join('dist', '_redirects');
+  const content = '/* /index.html 200';
+  fs.writeFileSync(redirectsPath, content);
+  console.log('_redirects file created successfully.');
+}
+
 // Helper function to find files with a specific extension
 function findFiles(dir, extension) {
   let results = [];
@@ -128,6 +143,9 @@ function main() {
   
   // Create 404 page
   create404Page();
+  
+  // Create _redirects file
+  createRedirectsFile();
   
   console.log('Build and optimization completed successfully.');
 }
