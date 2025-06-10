@@ -1,6 +1,6 @@
 {
   "build": {
-    "command": "npm install && npm run build",
+    "command": "node cloudflare-pages-build.js",
     "environment": {
       "NODE_VERSION": "18"
     },

@@ -1,5 +1,5 @@
 build:
-  command: chmod +x ./cloudflare-build.sh && ./cloudflare-build.sh
+  command: node fix-paths.js && node cloudflare-pages-build.js
   output_directory: dist
   environment:
     NODE_VERSION: 18 
